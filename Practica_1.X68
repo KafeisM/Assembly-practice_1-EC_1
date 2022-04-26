@@ -11,33 +11,33 @@ NOT_FOUND:  DS.B 1
 *--------------------------------------------
 AUX:        DC.W 0
 
-*El registro D0,D1 servir�n para iterar en los bucles
-*Los registros D2,D3 se guardar�n las correspondientes letras a comparar
-*Los Strings se recorrer�n con el direcionamiente indexado
+*El registro D0,D1 servirán para iterar en los bucles
+*Los registros D2,D3 se guardarán las correspondientes letras a comparar
+*Los Strings se recorrerán con el direcionamiente indexado
 
 START:
     
-    MOVE.W #WORD_SIZE, D0   ;Inicializamos el DBRA, iterar� X veces el LOOP_1
+    MOVE.W #WORD_SIZE, D0   ;Inicializamos el DBRA, iterará X veces el LOOP_1
     SUB.B #1,D0
     
     MOVE.L #0,A0            ;Ponemos el indice del vector WORD_1 a 0
  LOOP_1:
     MOVE.B WORD_1(A0),D2    
-    ADDQ.L #1,A0            ;Aumentamos el �ndice
+    ADDQ.L #1,A0            ;Aumentamos el índice
     
-    MOVE.W #WORD_SIZE, D1   ;Inicializamos el dbra, iterar� X veces el LOOP_2
+    MOVE.W #WORD_SIZE, D1   ;Inicializamos el dbra, iterará X veces el LOOP_2
     SUB.B #1,D1
     
     MOVE.L #0,A1            
 LOOP_2:                     ;creamos un bucle anidado que compara todas
-                            ;las letras con una �nica letra de WORD_1
+                            ;las letras con una única letra de WORD_1
     
     MOVE.B WORD_2(A1),D3    
     
     CMP D2,D3
     BNE NO_IGUALES          
     ADDQ.W #1,(AUX)         ;si las letras son iguales, augmentar el contador
-    MOVE.B #0,WORD_2(A1)    ;ponemos 0 en la posici�n  
+    MOVE.B #0,WORD_2(A1)    ;ponemos 0 en la posición  
     BRA SALTO               ;salto incondicional para saltar NO_IGUALES
         
 NO_IGUALES:                 ;sino son iguales no augmenta el contador
